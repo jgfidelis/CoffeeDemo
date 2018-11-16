@@ -1,0 +1,6 @@
+rootProject.name = 'CoffeeDemo'
+
+include ':app'
+
+include ':react-native-order-by-distance'
+project(':react-native-order-by-distance').projectDir = new File(rootProject.projectDir,     '../node_modules/react-native-order-by-distance/android')
