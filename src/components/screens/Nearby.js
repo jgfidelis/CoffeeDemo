@@ -1,9 +1,11 @@
+// @flow
 import * as React from 'react';
 import { ActivityIndicator, FlatList, Text } from 'react-native';
 import { connect } from 'react-redux';
 import RNOrderByDistance from 'react-native-order-by-distance';
 import styled from 'styled-components';
 
+import Star from '../common/Star';
 import { nearbyStart } from '../../reducers/nearby';
 
 import type { Venue } from '../../types';
@@ -38,11 +40,6 @@ const SideView = styled.View`
 const RowText = styled.Text`
   font-size: 20;
   font-weight: bold;
-`;
-
-const Star = styled.Image`
-  width: 22;
-  height: 22;
 `;
 
 type Props = {
@@ -83,6 +80,7 @@ class Nearby extends React.PureComponent<Props, State> {
   async componentDidMount() {
     //just to get geolocation permision
     await getGeoLocation();
+    
     RNOrderByDistance.startModule();
     this.props.actions.startSearchRequest();
   }
@@ -109,7 +107,7 @@ class Nearby extends React.PureComponent<Props, State> {
         <RowText numberOfLines={1}>{item.name}</RowText>
         <SideView>
           <RowText>{item.rating}</RowText>
-          <Star source={{uri: 'http://www.clker.com/cliparts/M/I/J/t/i/o/star-md.png'}}/>
+          <Star size={22}/>
         </SideView>
       </ItemView>
     )

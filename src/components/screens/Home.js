@@ -1,4 +1,4 @@
-// flow
+// @flow
 
 import * as React from 'react';
 import { ActivityIndicator, Text, SafeAreaView, Linking } from 'react-native';
@@ -6,6 +6,8 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { featuredStart } from '../../reducers/featured';
 import Routes from '../navigation/Routes';
+import RoundedButton from '../common/RoundedButton';
+import Star from '../common/Star';
 
 import type { Venue } from '../../types';
 
@@ -26,21 +28,6 @@ const DrawerButton = styled.TouchableOpacity`
 const Preview = styled.Image`
   width: 100%;
   height: 35%;
-`;
-
-const ViewMoreButton = styled.TouchableOpacity`
-  margin-left: 10;
-  margin-top: 10;
-  border-radius: 8;
-  border-width: 1;
-  width: 140;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ViewMoreText = styled.Text`
-  font-size: 16;
-  font-weight: bold;
 `;
 
 const NameText = styled.Text`
@@ -72,21 +59,6 @@ const FieldTextBold = styled.Text`
 
 const FieldTextRegular = styled.Text`
   font-size: 16;
-`;
-
-const Star = styled.Image`
-  width: 16;
-  height: 16;
-`;
-
-const YelpButton = styled.TouchableOpacity`
-  margin-left: 10;
-  margin-top: 10;
-  border-radius: 8;
-  border-width: 1;
-  width: 140;
-  justify-content: center;
-  align-items: center;
 `;
 
 type Props = {
@@ -129,7 +101,10 @@ class Home extends React.PureComponent<Props> {
 
   openImageGallery = () => {
     const { navigation, venue } = this.props;
-    navigation.navigate(Routes.PIC_GALLERY, { pics: venue.photos });
+    const stories = venue.photos.map((pic, index) => {
+      return { id: index.toString(), image: pic };
+    })
+    navigation.navigate(Routes.PIC_GALLERY, { stories });
   }
 
   renderContent = () => {
@@ -138,9 +113,7 @@ class Home extends React.PureComponent<Props> {
     return (
       <Wrapper>
         <Preview source={{ uri: venue.image_url }} />
-        <ViewMoreButton onPress={this.openImageGallery}>
-          <ViewMoreText>View More Pics!</ViewMoreText>
-        </ViewMoreButton>
+        <RoundedButton onPress={this.openImageGallery} label={'View More Pics!'} />
         <NameText>{venue.name}</NameText>
         <Row>
           <InsideRow>
@@ -150,7 +123,7 @@ class Home extends React.PureComponent<Props> {
           <InsideRow>
             <FieldTextBold>Rating: </FieldTextBold>
             <FieldTextRegular>{venue.rating}</FieldTextRegular>
-            <Star source={{uri: 'http://www.clker.com/cliparts/M/I/J/t/i/o/star-md.png'}}/>
+            <Star size={16}/>
           </InsideRow>
         </Row>
         <Row>
@@ -169,9 +142,7 @@ class Home extends React.PureComponent<Props> {
             <FieldTextRegular>{`${venue.location.display_address.join(', ')}`}</FieldTextRegular>
           </InsideRow>
         </Row>
-        <YelpButton onPress={this.openUrl}>
-          <ViewMoreText>Check on Yelp!</ViewMoreText>
-        </YelpButton>
+        <RoundedButton onPress={this.openUrl} label={'Check on Yelp!'} />
       </Wrapper>
     );
   }

@@ -6,15 +6,6 @@ import Routes from './Routes';
 import PictureGallery from '../screens/PictureGallery';
 import AppDrawer from './AppDrawer';
 
-const Drawer = createDrawerNavigator({
-  [Routes.HOME]: {
-    screen: Home,
-  },
-  [Routes.Nearby]: {
-    screen: Nearby,
-  },
-});
-
 export const InnerAppRouter = createStackNavigator({
   [Routes.HOME]: { screen: Home },
   [Routes.NEARBY]: { screen: Nearby },
