@@ -9,6 +9,7 @@ import Star from '../common/Star';
 import { nearbyStart } from '../../reducers/nearby';
 
 import type { Venue } from '../../types';
+import type { NavigationScreenProp } from 'react-navigation';
 
 const CenterWrapper = styled.View`
   flex: 1;
@@ -47,6 +48,7 @@ type Props = {
   error: ?string,
   venues: ?(Venue[]),
   actions: { startSearchRequest: () => void },
+  navigation: NavigationScreenProp<{}>,
 };
 
 type State = {
@@ -54,10 +56,10 @@ type State = {
   hasLoaded: boolean,
 };
 
-export const getGeoLocation = async (): Promise<?GeoLocation> => {
+export const getGeoLocation = async (): Promise<?any> => {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(
-      (position: GeoLocation) => {
+      (position: any) => {
         resolve(position);
       },
       error => {
@@ -80,7 +82,7 @@ class Nearby extends React.PureComponent<Props, State> {
   async componentDidMount() {
     //just to get geolocation permision
     await getGeoLocation();
-    
+
     RNOrderByDistance.startModule();
     this.props.actions.startSearchRequest();
   }

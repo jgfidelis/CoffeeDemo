@@ -10,6 +10,7 @@ import RoundedButton from '../common/RoundedButton';
 import Star from '../common/Star';
 
 import type { Venue } from '../../types';
+import type { NavigationScreenProp } from 'react-navigation';
 
 const Wrapper = styled.View`
   flex: 1;
@@ -66,6 +67,7 @@ type Props = {
   error: ?string,
   venue: ?Venue,
   actions: { startFeaturedRequest: () => void },
+  navigation: NavigationScreenProp<{}>,
 };
 
 class Home extends React.PureComponent<Props> {

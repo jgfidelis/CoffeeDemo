@@ -21,7 +21,7 @@ type Props = {
   width?: number,
   fontSize?: number,
   label: string,
-  onPress: () => void,
+  onPress: () => void | Promise<void>,
 };
 
 export default class RoundedButton extends React.PureComponent<Props> {

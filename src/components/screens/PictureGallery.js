@@ -3,6 +3,8 @@ import * as React from 'react';
 import Stories from '../Stories';
 import styled from 'styled-components';
 
+import type { NavigationScreenProp } from 'react-navigation';
+
 const Wrapper = styled.View`
   flex: 1;
 `;
@@ -19,15 +21,15 @@ const BackLabel = styled.Text`
   font-weight: bold;
 `;
 
-type Props = {
-  navigation: {
-    state: {
-      params: {
-        stories: Array<{ id: string, image: string }>,
-      },
-    },
+type NavigationState = {
+  params: {
+    stories: Array<{ id: string, image: string }>,
   },
-}
+};
+
+type Props = {
+  navigation: NavigationScreenProp<NavigationState>,
+};
 
 export default class PictureGallery extends React.PureComponent<Props> {
   static navigationOptions = () => ({
